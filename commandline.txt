@@ -1,0 +1,14 @@
+# cortical thickness per region, left and right
+aparcstats2table --hemi lh --meas thickness --parc aparc --subjectsfile subj_list.txt --tablefile lh.aparc.thickness.txt
+aparcstats2table --hemi rh --meas thickness --parc aparc --subjectsfile subj_list.txt --tablefile rh.aparc.thickness.txt
+
+# cortical area per region
+aparcstats2table --hemi lh --meas area --parc aparc --subjectsfile subj_list.txt --tablefile lh.aparc.area.txt
+aparcstats2table --hemi rh --meas area --parc aparc --subjectsfile subj_list.txt --tablefile rh.aparc.area.txt
+
+# cortical volume per region
+aparcstats2table --hemi lh --meas volume --parc aparc --subjectsfile subj_list.txt --tablefile lh.aparc.volume.txt
+aparcstats2table --hemi rh --meas volume --parc aparc --subjectsfile subj_list.txt --tablefile rh.aparc.volume.txt
+
+# subcortical volumes
+asegstats2table --subjectsfile subj_list.txt --meas volume --tablefile aseg.volume.txt
