@@ -69,3 +69,33 @@ for roi in rois:
 
 wide.to_csv('freesurfer_wide_with_deltas.csv')
 print('Saved wide with deltas to freesurfer_wide_with_deltas.csv')
+
+# qc_and_normalize.py
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+df = pd.read_csv('freesurfer_wide_with_deltas.csv', index_col='subj')
+print('Shape:', df.shape)
+# examine distributions for a few example ROI percent-change
+roi_pct = [c for c in df.columns if c.endswith('_pctchg_12m')]
+print('Example pct-change cols count:', len(roi_pct))
+print(df[roi_pct].describe().T.head())
+
+# histogram for a representative ROI
+example = roi_pct[0]
+plt.hist(df[example].dropna(), bins=30)
+plt.title(example)
+plt.xlabel('% change at 12m')
+plt.ylabel('count')
+plt.show()
+
+# check missingness
+missing = df.isna().mean().sort_values(ascending=False)
+print('Top missing columns:\n', missing.head(20))
+
+# check outlier ranges for volumes (pick a volume column)
+vol_cols = [c for c in df.columns if c.endswith('_vol_volume') or '_vol_' in c or 'volume' in c]
+# if none, pick any volume-like column by inspection
+print('Found volume-like cols count:', len(vol_cols))
+
